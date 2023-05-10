@@ -7,7 +7,7 @@
 # ---------------------------------------------
 # Copyright (c) OpenMMLab. All rights reserved.
 # ---------------------------------------------
-#  Modified by Zhiqi Li
+#  Modified by Nishanth ravula
 # ---------------------------------------------
 
 import os.path as osp
