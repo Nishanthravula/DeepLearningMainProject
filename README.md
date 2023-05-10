@@ -7,8 +7,6 @@
 
 ![](./teaser/scene08_13_19.gif "")
 
-> **VoxFormer: Sparse Voxel Transformer for Camera-based 3D Semantic Scene Completion**, CVPR 2023.
-
 > [Nishanth Ravula]
 
 >  [[PDF]](https://arxiv.org/pdf/2302.12251.pdf) [[Project]](https://github.com/NVlabs/VoxFormer) 
