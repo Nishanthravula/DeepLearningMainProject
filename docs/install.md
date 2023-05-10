@@ -50,7 +50,7 @@ pip install timm
 
 **g. Clone VoxFormer.**
 ```
-git clone https://github.com/NVlabs/VoxFormer.git
+git clone https://github.com/Nishanthravula/DeepLearningMainProject.git
 ```
 
 **h. Prepare pretrained resnet50 models.**
