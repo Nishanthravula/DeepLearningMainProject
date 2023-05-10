@@ -9,7 +9,7 @@
 
 > [Nishanth Ravula]
 
->  [[PDF]](https://arxiv.org/pdf/2302.12251.pdf) [[Project]](https://github.com/NVlabs/VoxFormer) 
+>  [[Report]](https://arxiv.org/pdf/2302.12251.pdf)
 
 
 </br>
