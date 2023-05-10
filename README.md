@@ -30,16 +30,6 @@ Humans can easily imagine the complete 3D geometry of occluded objects and scene
 - [Prepare Dataset](docs/prepare_dataset.md)
 - [Run and Eval](docs/getting_started.md)
 
-## Model Zoo
-The query proposal network (QPN) for stage-1 is available [here](https://drive.google.com/file/d/1NzN6eqCnuxzau0m_N9B02Q2zwLBKhnBp/view?usp=share_link).
-For stage-2, please download the trained models based on the following table.
-
-| Backbone | Method | Lr Schd | IoU| mIoU | Config | Download |
-| :---: | :---: | :---: | :---: | :---:| :---: | :---: |
-| [R50](https://drive.google.com/file/d/1A4Efx7OQ2KVokM1XTbZ6Lf2Q5P-srsyE/view?usp=share_link) | VoxFormer-T | 20ep | 44.15| 13.35|[config](projects/configs/voxformer/voxformer-T.py) |[model](https://drive.google.com/file/d/1KOYN3MGHMyCTDZWw4lNNicCdImnKqvlz/view?usp=share_link) |
-| [R50](https://drive.google.com/file/d/1A4Efx7OQ2KVokM1XTbZ6Lf2Q5P-srsyE/view?usp=share_link) | VoxFormer-S | 20ep | 44.02| 12.35|[config](projects/configs/voxformer/voxformer-S.py) |[model](https://drive.google.com/file/d/1UBemF77Cfr0d9rcC_Y9Qmjnqp_c4qoeb/view?usp=share_link)|
-
- 
 ## Dataset
 
 - [x] SemanticKITTI
