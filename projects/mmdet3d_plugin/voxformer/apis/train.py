@@ -1,7 +1,7 @@
 # ---------------------------------------------
 # Copyright (c) OpenMMLab. All rights reserved.
 # ---------------------------------------------
-#  Modified by Zhiqi Li
+#  Modified by Nishanth ravula
 # ---------------------------------------------
 
 from .mmdet_train import custom_train_detector
