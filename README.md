@@ -14,10 +14,6 @@
 >  [[PDF]](https://arxiv.org/pdf/2302.12251.pdf) [[Project]](https://github.com/NVlabs/VoxFormer) 
 
 
-## News
-- [2023/02]: VoxFormer is accepted by [CVPR 2023](https://cvpr2023.thecvf.com/).
-- [2023/02]: Our paper is on [arxiv](https://arxiv.org/abs/2302.12251).
-- [2022/11]: VoxFormer achieve the SOTA on [SemanticKITTI 3D SSC (Semantic Scene Completion) Task](http://www.semantic-kitti.org/tasks.html#ssc) with **13.35% mIoU** and **44.15% IoU** (camera-only)!
 </br>
 
 
@@ -52,17 +48,6 @@ For stage-2, please download the trained models based on the following table.
 - [ ] KITTI-360
 - [ ] nuScenes
 
-## Bibtex
-If this work is helpful for your research, please cite the following BibTeX entry.
-
-```
-@InProceedings{li2023voxformer,
-      title={VoxFormer: Sparse Voxel Transformer for Camera-based 3D Semantic Scene Completion}, 
-      author={Li, Yiming and Yu, Zhiding and Choy, Christopher and Xiao, Chaowei and Alvarez, Jose M and Fidler, Sanja and Feng, Chen and Anandkumar, Anima},
-      booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
-      year={2023}
-}
-```
 
 ## License
 Copyright © 2022-2023, NVIDIA Corporation and Affiliates. All rights reserved.
