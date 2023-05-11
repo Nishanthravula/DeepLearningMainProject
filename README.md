@@ -1,13 +1,13 @@
 <div align="center">   
   
-# VoxFormer: a Cutting-edge Baseline for 3D Semantic Occupancy Prediction
+# 3D Semantic Explorer: Deep Learning for Complex Semantic Labeling and Occupancy Prediction
 </div>
 
-![](https://img.shields.io/badge/Ranked%20%231-Camera--Only%203D%20SSC%20on%20SemanticKITTI-green "")
+
 
 ![](./teaser/scene08_13_19.gif "")
 
-> [Nishanth Ravula]
+> [Nishanth Ravula, Syf, uday]
 
 >  [[Report]](https://arxiv.org/pdf/2302.12251.pdf)
 
