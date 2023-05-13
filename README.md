@@ -7,7 +7,7 @@
 
 ![](./teaser/scene08_13_19.gif "")
 
-> [Nishanth Ravula, Syf, uday]
+> [Nishanth Ravula, Syfullah Mohammad, uday]
 
 >  [[Report]](https://arxiv.org/pdf/2302.12251.pdf)
 
