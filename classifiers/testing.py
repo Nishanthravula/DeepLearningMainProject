@@ -9,16 +9,11 @@ from mmcv.cnn import fuse_conv_bn
 from mmcv import Config, DictAction
 from mmdet3d.models import build_model
 from mmdet.apis import set_random_seed
-<<<<<<< HEAD:classifiers/test.py
 from main.mmdet3d_plugin.semanticEx.apis.test import custom_multi_gpu_test
-=======
-from mmdet3d.apis import single_gpu_test
-from mmdet3d.datasets import build_dataset
->>>>>>> 00530ab88be0669494840c7eb11afbcbb84f5e76:classifiers/testing.py
 from mmdet.datasets import replace_ImageToTensor
 from main.mmdet3d_plugin.datasets.builder import build_dataloader
 from mmcv.parallel import MMDataParallel, MMDistributedDataParallel
-from main.mmdet3d_plugin.voxformer.apis.test import custom_multi_gpu_test
+from main.mmdet3d_plugin.semanticEx.apis.test import custom_multi_gpu_test
 from mmcv.runner import (get_dist_info, init_dist, load_checkpoint, wrap_fp16_model)
 
 def parse_args():
