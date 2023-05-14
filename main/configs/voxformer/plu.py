@@ -16,7 +16,6 @@ voxel_size = [0.2, 0.2, 0.2]
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
 
-# For nuScenes we usually do 10-class detection
 class_names = [
     'car', 'truck', 'construction_vehicle', 'bus', 'trailer', 'barrier',
     'motorcycle', 'bicycle', 'pedestrian', 'traffic_cone'
@@ -35,7 +34,7 @@ _ffn_dim_ = _dim_*2
 _num_levels_ = 1
 bev_h_ = 128
 bev_w_ = 128
-queue_length = 3 # each sequence contains `queue_length` frames.
+queue_length = 3 
 
 model = dict(
     type='LMSCNet_SS',
@@ -54,7 +53,7 @@ model = dict(
             type='HungarianAssigner3D',
             cls_cost=dict(type='FocalLossCost', weight=2.0),
             reg_cost=dict(type='BBox3DL1Cost', weight=0.25),
-            iou_cost=dict(type='IoUCost', weight=0.0), # Fake cost. This is just to make it compatible with DETR head.
+            iou_cost=dict(type='IoUCost', weight=0.0),
             pc_range=point_cloud_range))))
 
 dataset_type = 'SemanticKittiDatasetStage1'
@@ -97,23 +96,11 @@ data = dict(
     nonshuffler_sampler=dict(type='DistributedSampler')
 )
 
-optimizer = dict(
-    type='AdamW',
-    lr=2e-4,
-    # paramwise_cfg=dict(
-    #     custom_keys={
-    #         'img_backbone': dict(lr_mult=0.1),
-    #     }),
-    weight_decay=0.01)
+optimizer = dict(type='AdamW',lr=2e-4,weight_decay=0.01)
 
 optimizer_config = dict(grad_clip=dict(max_norm=35, norm_type=2))
-# learning policy
-lr_config = dict(
-    policy='CosineAnnealing',
-    warmup='linear',
-    warmup_iters=500,
-    warmup_ratio=1.0 / 3,
-    min_lr_ratio=1e-3)
+
+lr_config = dict(policy='CosineAnnealing',warmup='linear', warmup_iters=500,warmup_ratio=1.0 / 3, min_lr_ratio=1e-3) 
 total_epochs = 24
 evaluation = dict(interval=1, pipeline=test_pipeline)
 
