@@ -46,13 +46,13 @@ class MyCustomBaseTransformerLayer(BaseModule):
     Transformer Architecture <https://arxiv.org/abs/2002.04745>`_ .
     Args:
         attn_cfgs (list[`mmcv.ConfigDict`] | obj:`mmcv.ConfigDict` | None )):
-            Configs for `self_attention` or `cross_attention` modules,
-            The order of the configs in the list should be consistent with
+            configrations for `self_attention` or `cross_attention` modules,
+            The order of the configrations in the list should be consistent with
             corresponding attentions in operation_order.
             If it is a dict, all of the attention modules in operation_order
             will be built with this config. Default: None.
         ffn_cfgs (list[`mmcv.ConfigDict`] | obj:`mmcv.ConfigDict` | None )):
-            Configs for FFN, The order of the configs in the list should be
+            configrations for FFN, The order of the configrations in the list should be
             consistent with corresponding ffn in operation_order.
             If it is a dict, all of the attention modules in operation_order
             will be built with this config.

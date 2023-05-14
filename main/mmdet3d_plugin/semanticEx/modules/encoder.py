@@ -232,7 +232,7 @@ class semanticExLayer(MyCustomBaseTransformerLayer):
     """Implements encoder layer in DETR transformer.
     Args:
         attn_cfgs (list[`mmcv.ConfigDict`] | list[dict] | dict )):
-            Configs for self_attention or cross_attention, the order
+            configrations for self_attention or cross_attention, the order
             should be consistent with it in `operation_order`. If it is
             a dict, it would be expand to the number of attention in
             `operation_order`.

@@ -136,7 +136,7 @@ def main():
 
     # work_dir is determined in this priority: CLI > segment in file > filename
     if args.work_dir is not None:
-        # update configs according to CLI args if args.work_dir is not None
+        # update configrations according to CLI args if args.work_dir is not None
         cfg.work_dir = args.work_dir
     elif cfg.get('work_dir', None) is None:
         # use config filename as default work_dir if cfg.work_dir is None

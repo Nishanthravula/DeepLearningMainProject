@@ -8,25 +8,25 @@
 Train QPN with 4 GPUs 
 ```
 
-./classifiers/distributed_training.sh ./main/configs/semanticEx/qpn.py 4
+./classifiers/distributed_training.sh ./main/configrations/semanticEx/qpn.py 4
 
 ```
 
 Eval QPN with 4 GPUs
 ```
 
-./classifiers/distributed_testing.sh ./main/configs/semanticEx/qpn.py ./path/to/ckpts.pth 4
+./classifiers/distributed_testing.sh ./main/configrations/semanticEx/qpn.py ./path/to/ckpts.pth 4
 
 ```
 ## Stage-2: Class-Specific Voxel Segmentation
 Train with temporal information with 4 GPUs 
 ```
 
-./classifiers/distributed_training.sh ./main/configs/semanticEx/semanticEx-T.py 4
+./classifiers/distributed_training.sh ./main/configrations/semanticEx/semanticEx-T.py 4
 ```
 
 Eval with temporal information with 4 GPUs
 ```
 
-./classifiers/distributed_testing.sh ./main/configs/semanticEx/semanticEx-T.py ./path/to/ckpts.pth 4
+./classifiers/distributed_testing.sh ./main/configrations/semanticEx/semanticEx-T.py ./path/to/ckpts.pth 4
 ```
