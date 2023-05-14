@@ -5,7 +5,7 @@
 
 
 
-![](./teaser/camera3D.mp4 "")
+![](./teaser/camera3D.gif "")
 
 > [Nishanth Ravula, Syfullah Mohammad, Uday Tej Togiti]
 
