@@ -5,8 +5,8 @@ exeFunc(){
     --depth_dir ./mobilestereonet/depth/sequences/$num_seq \
     --save_dir ./mobilestereonet/lidar/sequences/$num_seq
 
-    cp data_odometry_calib/sequences/$num_seq/calib.txt ./mobilestereonet/lidar/sequences/$num_seq/
-    cp data_odometry_calib/sequences/$num_seq/poses.txt ./mobilestereonet/lidar/sequences/$num_seq/
+    cp extracted_data_calib/sequences/$num_seq/calib.txt ./mobilestereonet/lidar/sequences/$num_seq/
+    cp extracted_data_calib/sequences/$num_seq/poses.txt ./mobilestereonet/lidar/sequences/$num_seq/
 }
 # Change data_path to your own specified path
 # And make sure there is enough space under data_path to store the generated data

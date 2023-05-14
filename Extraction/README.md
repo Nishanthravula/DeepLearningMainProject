@@ -5,7 +5,7 @@ ln -s [SemanticKITTI root] ./kitti
 ```
 Copy the calibration files to dataset
 ```
-cp -r data_odometry_calib/sequences kitti/dataset
+cp -r extracted_data_calib/sequences kitti/dataset
 ```
 The data is organized in the following format:
 
