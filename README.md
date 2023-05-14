@@ -5,7 +5,7 @@
 
 
 
-![](./teaser/camera3D.gif "")
+![](./images/camera3D.gif "")
 
 > [Nishanth Ravula, Syfullah Mohammad, Uday Tej Togiti]
 
@@ -21,7 +21,7 @@ Humans have the ability to formulate a 3D mental map of the entire surrounding p
 
 ## Method
 
-| ![space-1.jpg](teaser/arch.jpg) | 
+| ![space-1.jpg](images/arch.jpg) | 
 |:--:| 
 | ***Figure 1. Proposed architecture **. Given RGB images, 2D features are extracted by ResNet50 and the depth is estimated by an off-the-shelf depth predictor. The estimated depth after correction enables the class-agnostic query proposal stage: the query located at an occupied position will be selected to carry out deformable cross-attention with image features. Afterwards, mask tokens will be added for completing voxel features by deformable self-attention. The refined voxel features will be upsampled and projected to the output space for per-voxel semantic segmentation. Note that our framework supports the input of single or multiple images.* |
 
@@ -47,7 +47,7 @@ For business inquiries, please visit our website and submit the form: [NVIDIA Re
 
 ## Acknowledgement
 
-Many thanks to these excellent open source projects:
+Many thanks to these excellent open source main:
 - [BEVFormer](https://github.com/fundamentalvision/BEVFormer)
 - [mmdet3d](https://github.com/open-mmlab/mmdetection3d)
 - [MonoScene](https://github.com/astra-vision/MonoScene)
