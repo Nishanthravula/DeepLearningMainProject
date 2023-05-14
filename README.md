@@ -5,7 +5,7 @@
 
 
 
-![](./teaser/scene08_13_19.gif "")
+![](./teaser/camera3D.mp4 "")
 
 > [Nishanth Ravula, Syfullah Mohammad, uday]
 
