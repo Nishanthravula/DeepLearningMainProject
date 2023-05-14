@@ -6,7 +6,7 @@
 # ---------------------------------------------
 # Copyright (c) OpenMMLab. All rights reserved.
 # ---------------------------------------------
-#  Modified by Nishanth ravula
+#  Modified by Nishanth ravula, syfullah Mohammad
 # ---------------------------------------------
 
 from main.mmdet3d_plugin.models.utils.bricks import run_time

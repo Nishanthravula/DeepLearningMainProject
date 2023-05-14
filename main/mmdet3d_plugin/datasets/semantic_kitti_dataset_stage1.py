@@ -2,7 +2,7 @@
 #
 # This work is made available under the Nvidia Source Code License-NC.
 # To view a copy of this license, visit
-# https://github.com/NVlabs/semanticEx/blob/main/LICENSE
+# https://github.com/Nishanthravula/DeepLearningMainProject/blob/main/LICENSE
 
 import os
 import glob

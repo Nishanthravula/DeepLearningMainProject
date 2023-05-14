@@ -5,7 +5,7 @@
 # ---------------------------------------------
 # Copyright (c) OpenMMLab. All rights reserved.
 # ---------------------------------------------
-#  Modified by Nishanth ravula
+#  Modified by Nishanth ravula, syfullah Mohammad
 # ---------------------------------------------
 
 import os
@@ -24,22 +24,7 @@ from main.mmdet3d_plugin.models.utils.bricks import run_time
 
 @HEADS.register_module()
 class semanticExHead(nn.Module):
-    def __init__(
-        self,
-        *args,
-        bev_h,
-        bev_w,
-        bev_z,
-        cross_transformer,
-        self_transformer,
-        positional_encoding,
-        embed_dims,
-        CE_ssc_loss=True,
-        geo_scal_loss=True,
-        sem_scal_loss=True,
-        save_flag = False,
-        **kwargs
-    ):
+    def __init__( self, *args, bev_h, bev_w,  bev_z,  cross_transformer, self_transformer, positional_encoding, embed_dims, CE_ssc_loss=True, geo_scal_loss=True, sem_scal_loss=True, save_flag = False, **kwargs ):
         super().__init__()
         self.bev_h = bev_h
         self.bev_w = bev_w 
@@ -87,46 +72,23 @@ class semanticExHead(nn.Module):
         proposal =  img_metas[0]['proposal'].reshape(self.bev_h, self.bev_w, self.bev_z)
         unmasked_idx = np.asarray(np.where(proposal.reshape(-1)>0)).astype(np.int32)
         masked_idx = np.asarray(np.where(proposal.reshape(-1)==0)).astype(np.int32)
-        vox_coords, ref_3d = self.get_ref_3d()
+        semn_coords, ref_3d = self.get_ref_3d()
 
         # Compute seed features of query proposals by deformable cross attention
-        seed_feats = self.cross_transformer.get_vox_features(
-            mlvl_feats, 
-            bev_queries,
-            self.bev_h,
-            self.bev_w,
-            ref_3d=ref_3d,
-            vox_coords=vox_coords,
-            unmasked_idx=unmasked_idx,
-            grid_length=(self.real_h / self.bev_h, self.real_w / self.bev_w),
-            bev_pos=bev_pos_cross_attn,
-            img_metas=img_metas,
-            prev_bev=None,
+        seed_feats = self.cross_transformer.get_semn_features( mlvl_feats,  bev_queries, self.bev_h, self.bev_w, ref_3d=ref_3d, semn_coords=semn_coords, unmasked_idx=unmasked_idx, grid_length=(self.real_h / self.bev_h, self.real_w / self.bev_w), bev_pos=bev_pos_cross_attn, img_metas=img_metas, prev_bev=None,
         )
 
-        # Complete voxel features by adding mask tokens
-        vox_feats = torch.empty((self.bev_h, self.bev_w, self.bev_z, self.embed_dims), device=bev_queries.device)
-        vox_feats_flatten = vox_feats.reshape(-1, self.embed_dims)
-        vox_feats_flatten[vox_coords[unmasked_idx[0], 3], :] = seed_feats[0]
-        vox_feats_flatten[vox_coords[masked_idx[0], 3], :] = self.mask_embed.weight.view(1, self.embed_dims).expand(masked_idx.shape[1], self.embed_dims).to(dtype)
+        # Complete semnel features by adding mask tokens
+        semn_feats = torch.empty((self.bev_h, self.bev_w, self.bev_z, self.embed_dims), device=bev_queries.device)
+        semn_feats_flatten = semn_feats.reshape(-1, self.embed_dims)
+        semn_feats_flatten[semn_coords[unmasked_idx[0], 3], :] = seed_feats[0]
+        semn_feats_flatten[semn_coords[masked_idx[0], 3], :] = self.mask_embed.weight.view(1, self.embed_dims).expand(masked_idx.shape[1], self.embed_dims).to(dtype)
 
-        # Diffuse voxel features by deformable self attention
-        vox_feats_diff = self.self_transformer.diffuse_vox_features(
-            mlvl_feats,
-            vox_feats_flatten,
-            512,
-            512,
-            ref_3d=ref_3d,
-            vox_coords=vox_coords,
-            unmasked_idx=unmasked_idx,
-            grid_length=(self.real_h / self.bev_h, self.real_w / self.bev_w),
-            bev_pos=bev_pos_self_attn,
-            img_metas=img_metas,
-            prev_bev=None,
-        )
-        vox_feats_diff = vox_feats_diff.reshape(self.bev_h, self.bev_w, self.bev_z, self.embed_dims)
+        # Diffuse semnel features by deformable self attention
+        diff_sem_feats = self.self_transformer.diffuse_semn_features( mlvl_feats, semn_feats_flatten, 512, 512, ref_3d=ref_3d, semn_coords=semn_coords, unmasked_idx=unmasked_idx, grid_length=(self.real_h / self.bev_h, self.real_w / self.bev_w), bev_pos=bev_pos_self_attn, img_metas=img_metas, prev_bev=None,)
+        diff_sem_feats = diff_sem_feats.reshape(self.bev_h, self.bev_w, self.bev_z, self.embed_dims)
         input_dict = {
-            "x3d": vox_feats_diff.permute(3, 0, 1, 2).unsqueeze(0),
+            "x3d": diff_sem_feats.permute(3, 0, 1, 2).unsqueeze(0),
         }
         out = self.header(input_dict)
         return out 
@@ -191,27 +153,27 @@ class semanticExHead(nn.Module):
         Args:
             self.real_h, self.bev_h
         Returns:
-            vox_coords (Array): Voxel indices
+            semn_coords (Array): semnel indices
             ref_3d (Array): 3D reference points
         """
         scene_size = (51.2, 51.2, 6.4)
-        vox_origin = np.array([0, -25.6, -2])
-        voxel_size = self.real_h / self.bev_h
+        semn_origin = np.array([0, -25.6, -2])
+        semnel_size = self.real_h / self.bev_h
 
         vol_bnds = np.zeros((3,2))
-        vol_bnds[:,0] = vox_origin
-        vol_bnds[:,1] = vox_origin + np.array(scene_size)
+        vol_bnds[:,0] = semn_origin
+        vol_bnds[:,1] = semn_origin + np.array(scene_size)
 
-        # Compute the voxels index in lidar cooridnates
-        vol_dim = np.ceil((vol_bnds[:,1]- vol_bnds[:,0])/ voxel_size).copy(order='C').astype(int)
+        # Compute the semnels index in lidar cooridnates
+        vol_dim = np.ceil((vol_bnds[:,1]- vol_bnds[:,0])/ semnel_size).copy(order='C').astype(int)
         idx = np.array([range(vol_dim[0]*vol_dim[1]*vol_dim[2])])
         xv, yv, zv = np.meshgrid(range(vol_dim[0]), range(vol_dim[1]), range(vol_dim[2]), indexing='ij')
-        vox_coords = np.concatenate([xv.reshape(1,-1), yv.reshape(1,-1), zv.reshape(1,-1), idx], axis=0).astype(int).T
+        semn_coords = np.concatenate([xv.reshape(1,-1), yv.reshape(1,-1), zv.reshape(1,-1), idx], axis=0).astype(int).T
 
-        # Normalize the voxels centroids in lidar cooridnates
+        # Normalize the semnels centroids in lidar cooridnates
         ref_3d = np.concatenate([(xv.reshape(1,-1)+0.5)/self.bev_h, (yv.reshape(1,-1)+0.5)/self.bev_w, (zv.reshape(1,-1)+0.5)/self.bev_z,], axis=0).astype(np.float64).T 
 
-        return vox_coords, ref_3d
+        return semn_coords, ref_3d
 
     def save_pred(self, img_metas, y_pred):
         """Save predictions for evaluations and visualizations.

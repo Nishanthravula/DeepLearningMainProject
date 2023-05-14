@@ -1,7 +1,7 @@
 # ---------------------------------------------
 # Copyright (c) OpenMMLab. All rights reserved.
 # ---------------------------------------------
-#  Modified by Nishanth ravula
+#  Modified by Nishanth ravula, syfullah Mohammad
 # ---------------------------------------------
 
 import random
@@ -26,18 +26,10 @@ import os.path as osp
 from main.mmdet3d_plugin.datasets.builder import build_dataloader
 from main.mmdet3d_plugin.core.evaluation.eval_hooks import CustomDistEvalHook
 from main.mmdet3d_plugin.datasets import custom_build_dataset
-def custom_train_detector(model,
-                   dataset,
-                   cfg,
-                   distributed=False,
-                   validate=False,
-                   timestamp=None,
-                   eval_model=None,
-                   meta=None):
+def custom_train_detector(model,dataset,cfg, distributed=False, validate=False, timestamp=None, eval_model=None, meta=None):
     logger = get_root_logger(cfg.log_level)
 
     # prepare data loaders
-   
     dataset = dataset if isinstance(dataset, (list, tuple)) else [dataset]
     #assert len(dataset)==1s
     if 'imgs_per_gpu' in cfg.data:
@@ -55,43 +47,22 @@ def custom_train_detector(model,
         cfg.data.samples_per_gpu = cfg.data.imgs_per_gpu
 
     data_loaders = [
-        build_dataloader(
-            ds,
-            cfg.data.samples_per_gpu,
-            cfg.data.workers_per_gpu,
-            # cfg.gpus will be ignored if distributed
-            len(cfg.gpu_ids),
-            dist=distributed,
-            seed=cfg.seed,
-            shuffler_sampler=cfg.data.shuffler_sampler,  # dict(type='DistributedGroupSampler'),
-            nonshuffler_sampler=cfg.data.nonshuffler_sampler,  # dict(type='DistributedSampler'),
+        build_dataloader( ds, cfg.data.samples_per_gpu, cfg.data.workers_per_gpu, len(cfg.gpu_ids), dist=distributed, seed=cfg.seed, shuffler_sampler=cfg.data.shuffler_sampler,   nonshuffler_sampler=cfg.data.nonshuffler_sampler, 
         ) for ds in dataset
     ]
 
     # put model on gpus
     if distributed:
         find_unused_parameters = cfg.get('find_unused_parameters', True)
-        # Sets the `find_unused_parameters` parameter in
-        # torch.nn.parallel.DistributedDataParallel
-        model = MMDistributedDataParallel(
-            model.cuda(),
-            device_ids=[torch.cuda.current_device()],
-            broadcast_buffers=False,
-            find_unused_parameters=find_unused_parameters)
+
+        model = MMDistributedDataParallel( model.cuda(), device_ids=[torch.cuda.current_device()], broadcast_buffers=False, find_unused_parameters=find_unused_parameters)
         if eval_model is not None:
-            eval_model = MMDistributedDataParallel(
-                eval_model.cuda(),
-                device_ids=[torch.cuda.current_device()],
-                broadcast_buffers=False,
-                find_unused_parameters=find_unused_parameters)
+            eval_model = MMDistributedDataParallel( eval_model.cuda(), device_ids=[torch.cuda.current_device()], broadcast_buffers=False, find_unused_parameters=find_unused_parameters)
     else:
-        model = MMDataParallel(
-            model.cuda(cfg.gpu_ids[0]), device_ids=cfg.gpu_ids)
+        model = MMDataParallel(model.cuda(cfg.gpu_ids[0]), device_ids=cfg.gpu_ids)
         if eval_model is not None:
             eval_model = MMDataParallel(
                 eval_model.cuda(cfg.gpu_ids[0]), device_ids=cfg.gpu_ids)
-
-
     # build runner
     optimizer = build_optimizer(model, cfg.optimizer)
 
@@ -109,22 +80,11 @@ def custom_train_detector(model,
     if eval_model is not None:
         runner = build_runner(
             cfg.runner,
-            default_args=dict(
-                model=model,
-                eval_model=eval_model,
-                optimizer=optimizer,
-                work_dir=cfg.work_dir,
-                logger=logger,
-                meta=meta))
+            default_args=dict( model=model, eval_model=eval_model, optimizer=optimizer, work_dir=cfg.work_dir, logger=logger, meta=meta))
     else:
         runner = build_runner(
             cfg.runner,
-            default_args=dict(
-                model=model,
-                optimizer=optimizer,
-                work_dir=cfg.work_dir,
-                logger=logger,
-                meta=meta))
+            default_args=dict( model=model, optimizer=optimizer, work_dir=cfg.work_dir, logger=logger, meta=meta))
 
     # an ugly workaround to make .log and .log.json filenames the same
     runner.timestamp = timestamp
@@ -140,20 +100,15 @@ def custom_train_detector(model,
         optimizer_config = cfg.optimizer_config
 
     # register hooks
-    runner.register_training_hooks(cfg.lr_config, optimizer_config,
-                                   cfg.checkpoint_config, cfg.log_config,
-                                   cfg.get('momentum_config', None))
+    runner.register_training_hooks(cfg.lr_config, optimizer_config, cfg.checkpoint_config, cfg.log_config, cfg.get('momentum_config', None))
     
-    # register profiler hook
-    #trace_config = dict(type='tb_trace', dir_name='work_dir')
-    #profiler_config = dict(on_trace_ready=trace_config)
-    #runner.register_profiler_hook(profiler_config)
+
     
     if distributed:
         if isinstance(runner, EpochBasedRunner):
             runner.register_hook(DistSamplerSeedHook())
 
-    # register eval hooks
+    # register eval h 
     if validate:
         # Support batch_size > 1 in validation
         val_samples_per_gpu = cfg.data.val.pop('samples_per_gpu', 1)
@@ -164,20 +119,13 @@ def custom_train_detector(model,
                 cfg.data.val.pipeline)
         val_dataset = custom_build_dataset(cfg.data.val, dict(test_mode=True))
 
-        val_dataloader = build_dataloader(
-            val_dataset,
-            samples_per_gpu=val_samples_per_gpu,
-            workers_per_gpu=cfg.data.workers_per_gpu,
-            dist=distributed,
-            shuffle=False,
-            shuffler_sampler=cfg.data.shuffler_sampler,  # dict(type='DistributedGroupSampler'),
-            nonshuffler_sampler=cfg.data.nonshuffler_sampler,  # dict(type='DistributedSampler'),
+        val_dataloader = build_dataloader( val_dataset, samples_per_gpu=val_samples_per_gpu, workers_per_gpu=cfg.data.workers_per_gpu, dist=distributed, shuffle=False, shuffler_sampler=cfg.data.shuffler_sampler,   nonshuffler_sampler=cfg.data.nonshuffler_sampler,  
         )
-        eval_cfg = cfg.get('evaluation', {})
-        eval_cfg['by_epoch'] = cfg.runner['type'] != 'IterBasedRunner'
-        eval_cfg['jsonfile_prefix'] = osp.join('val', cfg.work_dir, time.ctime().replace(' ','_').replace(':','_'))
+        configEval = cfg.get('evaluation', {})
+        configEval['by_epoch'] = cfg.runner['type'] != 'IterBasedRunner'
+        configEval['jsonfile_prefix'] = osp.join('val', cfg.work_dir, time.ctime().replace(' ','_').replace(':','_'))
         eval_hook = CustomDistEvalHook if distributed else EvalHook
-        runner.register_hook(eval_hook(val_dataloader, greater_keys=['mIoU'], **eval_cfg))
+        runner.register_hook(eval_hook(val_dataloader, greater_keys=['mIoU'], **configEval))
 
     # user-defined hooks
     if cfg.get('custom_hooks', None):

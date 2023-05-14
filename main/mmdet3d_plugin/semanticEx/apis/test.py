@@ -4,7 +4,7 @@
 # ---------------------------------------------
 # Copyright (c) OpenMMLab. All rights reserved.
 # ---------------------------------------------
-#  Modified by Nishanth ravula
+#  Modified by Nishanth ravula, syfullah Mohammad
 # ---------------------------------------------
 
 import os.path as osp
@@ -36,14 +36,14 @@ def custom_encode_mask_results(mask_results):
         list | tuple: RLE encoded mask.
     """
 
-    cls_segms = mask_results
-    num_classes = len(cls_segms)
+    segments_Cls = mask_results
+    num_classes = len(segments_Cls)
     encoded_mask_results = []
-    for i in range(len(cls_segms)):
+    for i in range(len(segments_Cls)):
         encoded_mask_results.append(
             mask_util.encode(
                 np.array(
-                    cls_segms[i][:, :, np.newaxis], order='F',
+                    segments_Cls[i][:, :, np.newaxis], order='F',
                         dtype='uint8'))[0])  # encoded with RLE
     return [encoded_mask_results]
 
@@ -76,9 +76,7 @@ def custom_multi_gpu_test(model, data_loader, tmpdir=None, gpu_collect=False):
     for i, data in enumerate(data_loader):
         with torch.no_grad():
             result = model(return_loss=False, rescale=True, **data)
-
             # print(result)
-            # encode mask results
             if isinstance(result, dict):
                 # if 'y_pred' in result.keys():
                 # y_pred = result['y_pred']
