@@ -1,25 +1,21 @@
-
-import argparse
-import mmcv
 import os
+import time
+import mmcv
 import torch
+import argparse
 import warnings
-from mmcv import Config, DictAction
+import os.path as osp
 from mmcv.cnn import fuse_conv_bn
-from mmcv.parallel import MMDataParallel, MMDistributedDataParallel
-from mmcv.runner import (get_dist_info, init_dist, load_checkpoint,
-                         wrap_fp16_model)
-
-from mmdet3d.apis import single_gpu_test
-from mmdet3d.datasets import build_dataset
-from main.mmdet3d_plugin.datasets.builder import build_dataloader
+from mmcv import Config, DictAction
 from mmdet3d.models import build_model
 from mmdet.apis import set_random_seed
-from main.mmdet3d_plugin.voxformer.apis.test import custom_multi_gpu_test
+from mmdet3d.apis import single_gpu_test
+from mmdet3d.datasets import build_dataset
 from mmdet.datasets import replace_ImageToTensor
-import time
-import os.path as osp
-
+from main.mmdet3d_plugin.datasets.builder import build_dataloader
+from mmcv.parallel import MMDataParallel, MMDistributedDataParallel
+from main.mmdet3d_plugin.voxformer.apis.test import custom_multi_gpu_test
+from mmcv.runner import (get_dist_info, init_dist, load_checkpoint, wrap_fp16_model)
 
 def parse_args():
     parser = argparse.ArgumentParser(
