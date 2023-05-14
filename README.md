@@ -33,8 +33,7 @@ Humans can easily imagine the complete 3D geometry of occluded objects and scene
 ## Dataset
 
 - [x] SemanticKITTI
-- [ ] KITTI-360
-- [ ] nuScenes
+
 
 
 ## License
