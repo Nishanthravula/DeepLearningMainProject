@@ -48,13 +48,13 @@ pip install timm
 ```
 
 
-**g. Clone VoxFormer.**
+**g. Clone semanticEx.**
 ```
 git clone https://github.com/Nishanthravula/DeepLearningMainProject.git
 ```
 
 **h. Prepare pretrained resnet50 models.**
 ```shell
-cd VoxFormer && mkdir ckpts && cd ckpts
+cd semanticEx && mkdir ckpts && cd ckpts
 ```
 Download the pretrained [resnet50](https://drive.google.com/file/d/1A4Efx7OQ2KVokM1XTbZ6Lf2Q5P-srsyE/view?usp=share_link).

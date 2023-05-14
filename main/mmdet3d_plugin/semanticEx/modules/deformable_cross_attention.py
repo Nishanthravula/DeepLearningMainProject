@@ -33,7 +33,7 @@ ext_module = ext_loader.load_ext(
 
 @ATTENTION.register_module()
 class DeformCrossAttention(BaseModule):
-    """An attention module used in VoxFormer.
+    """An attention module used in semanticEx.
     Args:
         embed_dims (int): The embedding dimension of Attention.
             Default: 256.

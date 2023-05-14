@@ -2,7 +2,7 @@
 #
 # This work is made available under the Nvidia Source Code License-NC.
 # To view a copy of this license, visit
-# https://github.com/NVlabs/VoxFormer/blob/main/LICENSE
+# https://github.com/NVlabs/semanticEx/blob/main/LICENSE
 
 import os
 import glob
@@ -17,7 +17,7 @@ from PIL import Image
 from torchvision import transforms
 from mmdet.datasets import DATASETS
 from mmcv.parallel import DataContainer as DC
-from main.mmdet3d_plugin.voxformer.utils.ssc_metric import SSCMetrics
+from main.mmdet3d_plugin.semanticEx.utils.ssc_metric import SSCMetrics
 
 @DATASETS.register_module()
 class SemanticKittiDatasetStage1(Dataset):

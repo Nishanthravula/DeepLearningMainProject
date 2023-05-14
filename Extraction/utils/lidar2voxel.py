@@ -2,7 +2,7 @@
 #
 # This work is made available under the Nvidia Source Code License-NC.
 # To view a copy of this license, visit
-# https://github.com/NVlabs/VoxFormer/blob/main/LICENSE
+# https://github.com/NVlabs/semanticEx/blob/main/LICENSE
 
 #!/usr/bin/env python3
 # This file is covered by the LICENSE file in the root of this project.

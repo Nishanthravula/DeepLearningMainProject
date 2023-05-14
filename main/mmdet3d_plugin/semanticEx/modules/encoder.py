@@ -29,7 +29,7 @@ ext_module = ext_loader.load_ext(
 
 
 @TRANSFORMER_LAYER_SEQUENCE.register_module()
-class VoxFormerEncoder(TransformerLayerSequence):
+class semanticExEncoder(TransformerLayerSequence):
 
     """
     Attention with both self and cross
@@ -42,7 +42,7 @@ class VoxFormerEncoder(TransformerLayerSequence):
     def __init__(self, *args, pc_range=None, num_points_in_pillar=4, return_intermediate=False, dataset_type='nuscenes',
                  **kwargs):
 
-        super(VoxFormerEncoder, self).__init__(*args, **kwargs)
+        super(semanticExEncoder, self).__init__(*args, **kwargs)
         self.return_intermediate = return_intermediate
 
         self.num_points_in_pillar = num_points_in_pillar
@@ -228,7 +228,7 @@ class VoxFormerEncoder(TransformerLayerSequence):
         return output
 
 @TRANSFORMER_LAYER.register_module()
-class VoxFormerLayer(MyCustomBaseTransformerLayer):
+class semanticExLayer(MyCustomBaseTransformerLayer):
     """Implements encoder layer in DETR transformer.
     Args:
         attn_cfgs (list[`mmcv.ConfigDict`] | list[dict] | dict )):
@@ -258,7 +258,7 @@ class VoxFormerLayer(MyCustomBaseTransformerLayer):
                  norm_cfg=dict(type='LN'),
                  ffn_num_fcs=2,
                  **kwargs):
-        super(VoxFormerLayer, self).__init__(
+        super(semanticExLayer, self).__init__(
             attn_cfgs=attn_cfgs,
             feedforward_channels=feedforward_channels,
             ffn_dropout=ffn_dropout,

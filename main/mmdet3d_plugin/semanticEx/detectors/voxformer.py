@@ -23,7 +23,7 @@ from mmdet3d.models.detectors.mvx_two_stage import MVXTwoStageDetector
 from main.mmdet3d_plugin.models.utils.bricks import run_time
 
 @DETECTORS.register_module()
-class VoxFormer(MVXTwoStageDetector):
+class semanticEx(MVXTwoStageDetector):
     def __init__(self,
                  use_grid_mask=False,
                  pts_voxel_layer=None,
@@ -42,7 +42,7 @@ class VoxFormer(MVXTwoStageDetector):
                  pretrained=None
                  ):
 
-        super(VoxFormer,
+        super(semanticEx,
               self).__init__(pts_voxel_layer, pts_voxel_encoder,
                              pts_middle_encoder, pts_fusion_layer,
                              img_backbone, pts_backbone, img_neck, pts_neck,

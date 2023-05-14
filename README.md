@@ -39,7 +39,7 @@ Humans have the ability to formulate a 3D mental map of the entire surrounding p
 ## License
 Copyright © 2022-2023, NVIDIA Corporation and Affiliates. All rights reserved.
 
-This work is made available under the Nvidia Source Code License-NC. Click [here](https://github.com/NVlabs/VoxFormer/blob/main/LICENSE) to view a copy of this license.
+This work is made available under the Nvidia Source Code License-NC. Click [here](https://github.com/NVlabs/semanticEx/blob/main/LICENSE) to view a copy of this license.
 
 The pre-trained models are shared under [CC-BY-NC-SA-4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
 

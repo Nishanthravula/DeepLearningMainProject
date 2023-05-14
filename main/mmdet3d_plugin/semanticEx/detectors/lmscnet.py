@@ -20,7 +20,7 @@ import copy
 import numpy as np
 import mmdet3d
 from main.mmdet3d_plugin.models.utils.bricks import run_time
-from main.mmdet3d_plugin.voxformer.utils.ssc_loss import sem_scal_loss, CE_ssc_loss, KL_sep, geo_scal_loss, BCE_ssc_loss
+from main.mmdet3d_plugin.semanticEx.utils.ssc_loss import sem_scal_loss, CE_ssc_loss, KL_sep, geo_scal_loss, BCE_ssc_loss
 
 @DETECTORS.register_module()
 class LMSCNet_SS(MVXTwoStageDetector):

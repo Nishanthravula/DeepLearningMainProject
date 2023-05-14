@@ -129,7 +129,7 @@ def main():
                 print(_module_path)
                 plg_lib = importlib.import_module(_module_path)
 
-            from main.mmdet3d_plugin.voxformer.apis.train import custom_train_model
+            from main.mmdet3d_plugin.semanticEx.apis.train import custom_train_model
     # set cudnn_benchmark
     if cfg.get('cudnn_benchmark', False):
         torch.backends.cudnn.benchmark = True
@@ -140,7 +140,7 @@ def main():
         cfg.work_dir = args.work_dir
     elif cfg.get('work_dir', None) is None:
         # use config filename as default work_dir if cfg.work_dir is None
-        cfg.work_dir = osp.join('./result/voxformer',
+        cfg.work_dir = osp.join('./result/semanticEx',
                                 osp.splitext(osp.basename(args.config))[0])
     # if args.resume_from is not None:
     if args.resume_from is not None and osp.isfile(args.resume_from):

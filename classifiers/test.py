@@ -15,7 +15,7 @@ from mmdet3d.datasets import build_dataset
 from main.mmdet3d_plugin.datasets.builder import build_dataloader
 from mmdet3d.models import build_model
 from mmdet.apis import set_random_seed
-from main.mmdet3d_plugin.voxformer.apis.test import custom_multi_gpu_test
+from main.mmdet3d_plugin.semanticEx.apis.test import custom_multi_gpu_test
 from mmdet.datasets import replace_ImageToTensor
 import time
 import os.path as osp

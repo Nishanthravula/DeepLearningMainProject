@@ -1,4 +1,4 @@
-work_dir = 'result/voxformer-S'
+work_dir = 'result/semanticEx-T'
 _base_ = [
     '../_base_/default_runtime.py'
 ]
@@ -15,8 +15,8 @@ _ffn_dim_ = _dim_*2
 _num_levels_ = 1
 
 _labels_tag_ = 'labels'
-_num_cams_ = 1
-_temporal_ = []
+_num_cams_ = 5
+_temporal_ = [-12,-9,-6,-3]
 point_cloud_range = [0, -25.6, -2.0, 51.2, 25.6, 4.4]
 voxel_size = [0.2, 0.2, 0.2]
 
@@ -27,7 +27,7 @@ _nsweep_ = 10
 _query_tag_ = 'query_iou5203_pre7712_rec6153'
 
 model = dict(
-   type='VoxFormer',
+   type='semanticEx',
    pretrained=dict(img='ckpts/resnet50-19c8e357.pth'),
    img_backbone=dict(
        type='ResNet',
@@ -47,7 +47,7 @@ model = dict(
        num_outs=_num_levels_,
        relu_before_extra_convs=True),
    pts_bbox_head=dict(
-       type='VoxFormerHead',
+       type='semanticExHead',
        bev_h=128,
        bev_w=128,
        bev_z=16,
@@ -62,13 +62,13 @@ model = dict(
            embed_dims=_dim_,
            num_cams = _num_cams_,
            encoder=dict(
-               type='VoxFormerEncoder',
+               type='semanticExEncoder',
                num_layers=_num_layers_cross_,
                pc_range=point_cloud_range,
                num_points_in_pillar=8,
                return_intermediate=False,
                transformerlayers=dict(
-                   type='VoxFormerLayer',
+                   type='semanticExLayer',
                    attn_cfgs=[
                        dict(
                            type='DeformCrossAttention',
@@ -100,13 +100,13 @@ model = dict(
            embed_dims=_dim_,
            num_cams = _num_cams_,
            encoder=dict(
-               type='VoxFormerEncoder',
+               type='semanticExEncoder',
                num_layers=_num_layers_self_,
                pc_range=point_cloud_range,
                num_points_in_pillar=8,
                return_intermediate=False,
                transformerlayers=dict(
-                   type='VoxFormerLayer',
+                   type='semanticExLayer',
                    attn_cfgs=[
                        dict(
                            type='DeformSelfAttention',

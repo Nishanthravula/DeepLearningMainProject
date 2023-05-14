@@ -18,12 +18,12 @@ from mmdet.models import HEADS
 from mmdet.models.utils import build_transformer
 from mmdet.core import (multi_apply, multi_apply, reduce_mean)
 from mmcv.cnn.bricks.transformer import build_positional_encoding
-from main.mmdet3d_plugin.voxformer.utils.header import Header
-from main.mmdet3d_plugin.voxformer.utils.ssc_loss import sem_scal_loss, KL_sep, geo_scal_loss, CE_ssc_loss
+from main.mmdet3d_plugin.semanticEx.utils.header import Header
+from main.mmdet3d_plugin.semanticEx.utils.ssc_loss import sem_scal_loss, KL_sep, geo_scal_loss, CE_ssc_loss
 from main.mmdet3d_plugin.models.utils.bricks import run_time
 
 @HEADS.register_module()
-class VoxFormerHead(nn.Module):
+class semanticExHead(nn.Module):
     def __init__(
         self,
         *args,
@@ -245,7 +245,7 @@ class VoxFormerHead(nn.Module):
         y_pred[y_pred==9] = 40
 
         # save predictions
-        pred_folder = os.path.join("./voxformer", "sequences", img_metas[0]['sequence_id'], "predictions") 
+        pred_folder = os.path.join("./semanticEx", "sequences", img_metas[0]['sequence_id'], "predictions") 
         if not os.path.exists(pred_folder):
             os.makedirs(pred_folder)
         y_pred_bin = y_pred.astype(np.uint16)
