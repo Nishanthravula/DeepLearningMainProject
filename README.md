@@ -21,7 +21,7 @@ Humans can easily imagine the complete 3D geometry of occluded objects and scene
 
 ## Method
 
-| ![space-1.jpg](teaser/arch.png) | 
+| ![space-1.jpg](teaser/arch.jpg) | 
 |:--:| 
 | ***Figure 1. Overall framework of VoxFormer**. Given RGB images, 2D features are extracted by ResNet50 and the depth is estimated by an off-the-shelf depth predictor. The estimated depth after correction enables the class-agnostic query proposal stage: the query located at an occupied position will be selected to carry out deformable cross-attention with image features. Afterwards, mask tokens will be added for completing voxel features by deformable self-attention. The refined voxel features will be upsampled and projected to the output space for per-voxel semantic segmentation. Note that our framework supports the input of single or multiple images.* |
 
