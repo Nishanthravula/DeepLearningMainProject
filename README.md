@@ -44,15 +44,3 @@ This work is made available under the Nvidia Source Code License-NC. Click [here
 The pre-trained models are shared under [CC-BY-NC-SA-4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
 
 For business inquiries, please visit our website and submit the form: [NVIDIA Research Licensing](https://www.nvidia.com/en-us/research/inquiries/).
-
-## Acknowledgement
-
-Many thanks to these excellent open source main:
-- [BEVFormer](https://github.com/fundamentalvision/BEVFormer)
-- [mmdet3d](https://github.com/open-mmlab/mmdetection3d)
-- [MonoScene](https://github.com/astra-vision/MonoScene)
-- [LMSCNet](https://github.com/astra-vision/LMSCNet)
-- [semantic-kitti-api](https://github.com/PRBonn/semantic-kitti-api) 
-- [MobileStereoNet](https://github.com/cogsys-tuebingen/mobilestereonet)
-- [Pseudo_Lidar_V2](https://github.com/mileyan/Pseudo_Lidar_V2)
-- [wysiwyg](https://github.com/peiyunh/wysiwyg)
