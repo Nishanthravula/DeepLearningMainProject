@@ -7,7 +7,7 @@
 
 ![](./teaser/camera3D.mp4 "")
 
-> [Nishanth Ravula, Syfullah Mohammad, uday]
+> [Nishanth Ravula, Syfullah Mohammad, Uday Tej Togiti]
 
 >  [[Report]](https://arxiv.org/pdf/2302.12251.pdf)
 
